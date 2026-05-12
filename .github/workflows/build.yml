@@ -28,12 +28,16 @@ jobs:
           echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > app/release.jks
 
       - name: Build release APK
+        env:
+          STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
         run: |
           ./gradlew assembleRelease \
             -Pandroid.injected.signing.store.file=$(pwd)/app/release.jks \
-            -Pandroid.injected.signing.store.password=${{ secrets.STORE_PASSWORD }} \
-            -Pandroid.injected.signing.key.alias=${{ secrets.KEY_ALIAS }} \
-            -Pandroid.injected.signing.key.password=${{ secrets.KEY_PASSWORD }}
+            "-Pandroid.injected.signing.store.password=$STORE_PASSWORD" \
+            "-Pandroid.injected.signing.key.alias=$KEY_ALIAS" \
+            "-Pandroid.injected.signing.key.password=$KEY_PASSWORD"
 
       - name: Locate and rename APK
         run: |
@@ -52,36 +56,6 @@ jobs:
           name: server-dashboard-viewer-${{ env.VERSION }}
           path: ${{ env.APK_PATH }}
           retention-days: 30
-
-      - name: Deploy APK to F-Droid repo
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_DEPLOY_KEY }}
-          source: "${{ env.APK_PATH }}"
-          target: "${{ secrets.FDROID_REPO_PATH }}"
-
-      - name: Deploy metadata to server
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_DEPLOY_KEY }}
-          source: "fdroid/metadata/*"
-          target: "${{ secrets.FDROID_META_PATH }}"
-          strip_components: 2
-
-      - name: Run fdroid update on server
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_DEPLOY_KEY }}
-          script: |
-            cd ${{ secrets.FDROID_ROOT_PATH }}
-            fdroid update --pretty --delete-unknown
-            echo "F-Droid index updated — com.sidscri.serverdashboardviewer v${{ env.VERSION }} (code ${{ env.VCODE }})"
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
