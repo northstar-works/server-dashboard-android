@@ -1,102 +1,42 @@
-name: Build & Deploy to F-Droid
+Categories:
+  - System
 
-on:
-  push:
-    tags:
-      - 'v*'
-  workflow_dispatch:
+License: Proprietary
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
+AuthorName: Northstar Labs
+AuthorWebSite: https://github.com/northstar-works
 
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+Name: Server Dashboard
+Summary: WebView companion app for the Northstar Labs self-hosted server dashboard
+Description: |
+  A lightweight WebView wrapper for the Northstar Labs self-hosted server
+  dashboard. Displays live server stats, Docker container status, VM metrics,
+  and service health checks from your home lab infrastructure.
 
-      - name: Set up JDK 17
-        uses: actions/setup-java@v4
-        with:
-          java-version: '17'
-          distribution: 'temurin'
+  Requires a running instance of the Northstar Labs Server Dashboard on your
+  local network or accessible via a domain.
 
-      - name: Cache Gradle packages
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: gradle-${{ hashFiles('**/*.gradle', '**/gradle-wrapper.properties') }}
-          restore-keys: gradle-
+  Features:
+  - Full-screen WebView with hardware-accelerated rendering
+  - Supports both HTTP and HTTPS dashboard URLs
+  - Network state awareness
+  - Automatic screen orientation support
 
-      - name: Decode release keystore
-        run: |
-          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > app/release.jks
+RepoType: git
+Repo: https://github.com/northstar-works/server-dashboard-android
 
-      - name: Build release APK
-        run: |
-          chmod +x gradlew
-          ./gradlew assembleRelease \
-            -Pandroid.injected.signing.store.file=${{ github.workspace }}/app/release.jks \
-            -Pandroid.injected.signing.store.password="${{ secrets.KEY_STORE_PASSWORD }}" \
-            -Pandroid.injected.signing.key.alias="${{ secrets.KEY_ALIAS }}" \
-            -Pandroid.injected.signing.key.password="${{ secrets.KEY_PASSWORD }}"
+Builds:
+  - versionName: '1.0.6'
+    versionCode: 6
+    commit: v1.0.6
+    subdir: app
+    gradle:
+      - release
 
-      - name: Rename APK with package + version
-        run: |
-          APK_SRC=$(find app/build/outputs/apk/release -name "*.apk" | head -1)
-          # Package: com.sidscri.serverdashboardviewer
-          # Version extracted from build.gradle
-          VERSION=$(grep "versionName" app/build.gradle | grep -oP "[\d.]+" | head -1)
-          VCODE=$(grep "versionCode" app/build.gradle | grep -oP "[0-9]+" | head -1)
-          DEST="com.sidscri.serverdashboardviewer_${VCODE}.apk"
-          cp "$APK_SRC" "$DEST"
-          echo "APK_PATH=$DEST" >> $GITHUB_ENV
-          echo "APK_NAME=$DEST" >> $GITHUB_ENV
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
-          echo "VCODE=$VCODE" >> $GITHUB_ENV
+# Self-hosted repo: APK is supplied pre-built and pre-signed.
+# Builds block above is informational only.
+AutoUpdateMode: None
+UpdateCheckMode: None
 
-      - name: Upload APK artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: server-dashboard-viewer-${{ env.VERSION }}
-          path: ${{ env.APK_PATH }}
-          retention-days: 30
-
-      - name: Deploy APK to F-Droid repo on server
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_DEPLOY_KEY }}
-          source: "${{ env.APK_PATH }}"
-          target: "${{ secrets.FDROID_REPO_PATH }}"
-
-      - name: Deploy metadata to server
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_DEPLOY_KEY }}
-          source: "fdroid/metadata/*"
-          target: "${{ secrets.FDROID_META_PATH }}"
-          strip_components: 2
-
-      - name: Run fdroid update on server
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_DEPLOY_KEY }}
-          script: |
-            cd ${{ secrets.FDROID_ROOT_PATH }}
-            fdroid update --pretty --delete-unknown
-            echo "✓ F-Droid index updated — com.sidscri.serverdashboardviewer v${{ env.VERSION }} (code ${{ env.VCODE }})"
-
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
-        if: startsWith(github.ref, 'refs/tags/')
-        with:
-          files: ${{ env.APK_PATH }}
-          generate_release_notes: true
-          name: "Server Dashboard Viewer v${{ env.VERSION }}"
+CurrentVersion: '1.0.6'
+CurrentVersionCode: 6

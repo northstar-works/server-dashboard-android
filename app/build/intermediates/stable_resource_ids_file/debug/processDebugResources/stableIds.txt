@@ -1,0 +1,7 @@
+com.sidscri.serverdashboardviewer:xml/network_security_config = 0x7f050000
+com.sidscri.serverdashboardviewer:mipmap/ic_launcher_round = 0x7f020001
+com.sidscri.serverdashboardviewer:string/app_name = 0x7f030000
+com.sidscri.serverdashboardviewer:mipmap/ic_launcher = 0x7f020000
+com.sidscri.serverdashboardviewer:style/AppTheme = 0x7f040000
+com.sidscri.serverdashboardviewer:drawable/icon_192 = 0x7f010001
+com.sidscri.serverdashboardviewer:drawable/app_icon = 0x7f010000

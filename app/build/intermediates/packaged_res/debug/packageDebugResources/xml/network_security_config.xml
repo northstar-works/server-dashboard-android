@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">sidneyshelton.com</domain>
+        <domain includeSubdomains="true">home.sidneyshelton.com</domain>
+        <domain>192.168.0.4</domain>
+        <domain>192.168.0.110</domain>
+        <domain>192.168.0.172</domain>
+        <domain>192.168.0.180</domain>
+    </domain-config>
+</network-security-config>

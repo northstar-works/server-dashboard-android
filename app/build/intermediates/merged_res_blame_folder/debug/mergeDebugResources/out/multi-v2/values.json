@@ -1,0 +1,45 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.sidscri.serverdashboardviewer.app-mergeDebugResources-2:/values/values.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\Sidscri\\Documents\\GitHub\\Server Dashboard Android Viewer\\app\\src\\main\\res\\values\\styles.xml",
+                    "from": {
+                        "startLines": "1",
+                        "startColumns": "4",
+                        "startOffsets": "16",
+                        "endLines": "10",
+                        "endColumns": "12",
+                        "endOffsets": "613"
+                    },
+                    "to": {
+                        "startLines": "3",
+                        "startColumns": "4",
+                        "startOffsets": "109",
+                        "endLines": "12",
+                        "endColumns": "12",
+                        "endOffsets": "706"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\Sidscri\\Documents\\GitHub\\Server Dashboard Android Viewer\\app\\src\\main\\res\\values\\strings.xml",
+                    "from": {
+                        "startLines": "1",
+                        "startColumns": "4",
+                        "startOffsets": "16",
+                        "endColumns": "53",
+                        "endOffsets": "65"
+                    },
+                    "to": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "53",
+                        "endOffsets": "104"
+                    }
+                }
+            ]
+        }
+    ]
+}
