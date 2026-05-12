@@ -1,7 +1,0 @@
-com.sidscri.serverdashboardviewer.app-pngs-0 C:\Users\Sidscri\Documents\GitHub\Server Dashboard Android Viewer\app\build\generated\res\pngs\debug
-com.sidscri.serverdashboardviewer.app-resValues-1 C:\Users\Sidscri\Documents\GitHub\Server Dashboard Android Viewer\app\build\generated\res\resValues\debug
-com.sidscri.serverdashboardviewer.app-packageDebugResources-2 C:\Users\Sidscri\Documents\GitHub\Server Dashboard Android Viewer\app\build\intermediates\incremental\debug\packageDebugResources\merged.dir
-com.sidscri.serverdashboardviewer.app-packageDebugResources-3 C:\Users\Sidscri\Documents\GitHub\Server Dashboard Android Viewer\app\build\intermediates\incremental\debug\packageDebugResources\stripped.dir
-com.sidscri.serverdashboardviewer.app-debug-4 C:\Users\Sidscri\Documents\GitHub\Server Dashboard Android Viewer\app\build\intermediates\merged_res\debug\mergeDebugResources
-com.sidscri.serverdashboardviewer.app-debug-5 C:\Users\Sidscri\Documents\GitHub\Server Dashboard Android Viewer\app\src\debug\res
-com.sidscri.serverdashboardviewer.app-main-6 C:\Users\Sidscri\Documents\GitHub\Server Dashboard Android Viewer\app\src\main\res

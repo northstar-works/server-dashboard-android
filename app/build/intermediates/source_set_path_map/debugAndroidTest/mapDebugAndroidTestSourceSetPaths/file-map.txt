@@ -1,4 +1,0 @@
-com.sidscri.serverdashboardviewer.test.app-androidTest-0 C:\Users\Sidscri\Documents\GitHub\Server Dashboard Android Viewer\app\build\generated\res\resValues\androidTest\debug
-com.sidscri.serverdashboardviewer.test.app-mergeDebugAndroidTestResources-1 C:\Users\Sidscri\Documents\GitHub\Server Dashboard Android Viewer\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\merged.dir
-com.sidscri.serverdashboardviewer.test.app-mergeDebugAndroidTestResources-2 C:\Users\Sidscri\Documents\GitHub\Server Dashboard Android Viewer\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\stripped.dir
-com.sidscri.serverdashboardviewer.test.app-debugAndroidTest-3 C:\Users\Sidscri\Documents\GitHub\Server Dashboard Android Viewer\app\build\intermediates\merged_res\debugAndroidTest\mergeDebugAndroidTestResources
