@@ -1,3 +1,7 @@
+# Server Dashboard Android Viewer v1.0.7
+
+Compatibility bump for server-dashboard v6.4.8-b6. No WebView behavior changes were required; the compose rebuild fix is server-side.
+
 # Server Dashboard Android Viewer v1.0.4
 
 A small native Android WebView wrapper for the Server Dashboard.
